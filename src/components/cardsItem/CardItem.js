@@ -1,15 +1,12 @@
 import { useState } from "react"
-import { useAppDispatch } from "@/app/store/hooks"
 
-import { updateCorrectStatus } from "@/app/features/phrases/phrasesSlice"
-import Button from "../button/Button"
-import CheckStatus from "../checkStatus/CheckStatus"
+import ButtonDefault from "../buttonDefault/ButtonDefault"
+import CardStatus from "../cardStatus/CardStatus"
 
 export default function CardsItem({ 
   data
 }) {
   const [ isRussian, setIsRussian ] = useState(true)
-  const dispatch = useAppDispatch()
 
   let selfCheckHint
   if (data.selfCheckStatus === 'unset') {
@@ -26,11 +23,11 @@ export default function CardsItem({
 
   function handleReset() {
     setIsRussian(true);
-    dispatch(updateCorrectStatus({id: data.id, selfCheckStatus: 'unset'}))
+    // dispatch(updateCorrectStatus({id: data.id, selfCheckStatus: 'unset'}))
   }
 
   function handleCheck(result) {
-    dispatch(updateCorrectStatus({id: data.id, selfCheckStatus: result}))
+    // dispatch(updateCorrectStatus({id: data.id, selfCheckStatus: result}))
   }
 
   return (
@@ -46,10 +43,10 @@ export default function CardsItem({
       </h3>
 
       <div aria-live="off">
-        <Button test="button-answer" handleClick={handleChangeView}>
+        <ButtonDefault test="button-answer" handleClick={handleChangeView}>
           {isRussian ? 'Показать ответ' : 'Скрыть ответ'}
-        </Button>
-        {data.selfCheckStatus !== 'unset' && <CheckStatus status={data.selfCheckStatus}/>}
+        </ButtonDefault>
+        {data.selfCheckStatus !== 'unset' && <CardStatus status={data.selfCheckStatus}/>}
       </div>
 
       <hr aria-hidden="true"></hr>
@@ -57,22 +54,22 @@ export default function CardsItem({
       <div aria-live="polite">
         {data.selfCheckStatus === 'unset' && 
           <>
-            <Button 
+            <ButtonDefault 
               test="button-correct" 
               handleClick={() => handleCheck('correct')} 
               disabled={isRussian || data.selfCheckStatus !== 'unset'}
               checkStatus="correct"
             >
               Верно
-            </Button>
-            <Button 
+            </ButtonDefault>
+            <ButtonDefault 
               test="button-wrong" 
               handleClick={() => handleCheck('wrong')}  
               disabled={isRussian || data.selfCheckStatus !== 'unset'}
               checkStatus="wrong"
               >
                 Неверно
-            </Button>
+            </ButtonDefault>
           </>
         }
        
@@ -80,13 +77,13 @@ export default function CardsItem({
           {selfCheckHint}
         </p>
 
-        <Button 
+        <ButtonDefault 
             test="button-reset" 
             handleClick={handleReset}
             hidden={data.selfCheckStatus === 'unset'}
           >
             Сбросить
-        </Button>
+        </ButtonDefault>
       </div>
 
     </div>

@@ -1,6 +1,6 @@
-import styles from './button.module.css'
+import styles from './buttonDefault.module.css'
 
-export default function Button({
+export default function ButtonDefault({
   children,
   handleClick,
   test,

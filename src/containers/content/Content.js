@@ -1,12 +1,17 @@
 import Header from "../../components/header/Header"
 import CardsContainer from "../../components/cardsContainer/CardsContainer"
+import { useState } from "react"
 
 export default function Content() {
+  const [ isAutoSortOn, setIsAutoSortOn ] = useState(false)
+  function handleAutoSortChange() {
+    setIsAutoSortOn(!isAutoSortOn)
+  }
   return (
     <>
-      <Header></Header>
+      <Header isAutoSortOn={isAutoSortOn} handleAutoSortChange={handleAutoSortChange}></Header>
       <main>
-        <CardsContainer></CardsContainer>
+        <CardsContainer isAutoSortOn={isAutoSortOn}/>
       </main>
     </>
   )
